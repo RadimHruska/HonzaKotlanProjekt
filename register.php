@@ -1,15 +1,15 @@
 <?php
-// Include config file
+// Přidá konfigurační soubor config.php
 require_once "config.php";
 if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == true){
     header("location: index.php");
     exit;
 }
-// Define variables and initialize with empty values
+// definice proměných pro zápis do databáze
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
  
-// Processing form data when form is submitted
+// zpracovává data po potvrzení formuláře
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Validate username
@@ -18,14 +18,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
         $username_err = "Uživatelské jméno může obsahovat pouze malá a velká písmena, číslice a podtržítko.";
     } else{
-        // Prepare a select statement
+        // kontrola duplicity jmen?
         $sql = "SELECT id FROM users WHERE username = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
+            // přidá username jako parametr s
             mysqli_stmt_bind_param($stmt, "s", $param_username);
-            
-            // Set parameters
             $param_username = trim($_POST["username"]);
             
             // Attempt to execute the prepared statement
@@ -49,23 +47,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
 
     
-    // Check input errors before inserting in database
+    // Zkontroluje chyby v databázi
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
-        // Prepare an insert statement
+        // příprava insert dotazu
         $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
             
-            // Set parameters
+            // Nastavení parametrů
             $param_username = $username;
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Vytvoření hashe hesla (bazpečtnostní praktika pro uchování hesel, tak aby se nedaly ukrást)
             
-            // Attempt to execute the prepared statement
+            // provede sql command
             if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
+                // Přesněruje na indes page po registaci
                 header("location: index.php");
             } else{
                 echo "Oops! Něco se pokazilo, skuste to znovu později.";
