@@ -1,15 +1,15 @@
 <?php
-// Přidá konfigurační soubor config.php
+// Include config file
 require_once "config.php";
 if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == true){
     header("location: index.php");
     exit;
 }
-// definice proměných pro zápis do databáze
+// Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
  
-// zpracovává data po potvrzení formuláře
+// Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Validate username
@@ -18,12 +18,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
         $username_err = "Uživatelské jméno může obsahovat pouze malá a velká písmena, číslice a podtržítko.";
     } else{
-        // kontrola duplicity jmen?
+        // Prepare a select statement
         $sql = "SELECT id FROM users WHERE username = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
-            // přidá username jako parametr s
+            // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
             $param_username = trim($_POST["username"]);
             
             // Attempt to execute the prepared statement
@@ -47,23 +49,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
 
     
-    // Zkontroluje chyby v databázi
+    // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
-        // příprava insert dotazu
+        // Prepare an insert statement
         $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
             
-            // Nastavení parametrů
+            // Set parameters
             $param_username = $username;
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Vytvoření hashe hesla (bazpečtnostní praktika pro uchování hesel, tak aby se nedaly ukrást)
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             
-            // provede sql command
+            // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                // Přesněruje na indes page po registaci
+                // Redirect to login page
                 header("location: index.php");
             } else{
                 echo "Oops! Něco se pokazilo, skuste to znovu později.";
@@ -85,8 +87,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css" type="text/css" />
     <style>
-        body{ font: 14px sans-serif;  background-repeat: no-repeat;
+        body{ font: 14px sans-serif; background-image: url("pic/loginBackground.jpeg");  background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     height: 100vh;}
@@ -105,7 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <p>Pro registraci dalšího zákazníka vyplňtě tento formulář.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
-                <label>username</label>
+                <label>Křestní jméno</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>    
@@ -114,9 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Registrovat">
-            </div>
+            
         </form>
     </div>    
 </body>

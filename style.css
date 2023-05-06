@@ -1,0 +1,81 @@
+body {background-image: url("pic/loginBackground.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; margin: 0px; margin-top: 0px;  height: 100vh;}
+#obalovaci {margin: 0px auto; position: relative; width:800px;}
+#backgroundBlock {background-color: white; padding: 30px; border-radius: 10px; margin-top: 10px;}
+.space{height: 10vh;}
+
+nav
+{
+  text-align: center;
+    background-color: white;
+    height: 50px;
+    padding: 0px;
+    margin: 0px;
+    background-image: url("pic/navBackground.png");
+}
+nav ul
+{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+nav ul li
+{
+    display: inline-block;   
+     margin: 15px 0;
+}
+nav ul li a
+{
+
+    padding: 5px 25px;   
+    text-align: center;  
+    background-color: white;
+    font-size: 1.1em;
+    border-style: solid;
+    border-width: 0px;
+    border-radius: 10px;
+    border-color:#aff0ff;
+}
+nav ul li a:hover
+{
+    background-color: transparent;
+    text-decoration: none;
+    color: black;
+}
+nav a
+{
+  text-decoration: none;
+  color: black;
+}
+#currentpage
+{
+border-width: 2px;
+border-color: black;
+}
+
+
+.menuContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+
+.nemuFieldDiv h1{
+  margin: 0;
+  padding-top: 5vh;
+}
+.nemuField{
+text-decoration: none;
+color: black;
+}
+
+.nemuFieldDiv{
+ height: 15vh;
+ width: 400px;
+ background-color: white;
+ font-size: large;
+ border-radius: 10px;
+ text-align: center;
+  }
+
+  
