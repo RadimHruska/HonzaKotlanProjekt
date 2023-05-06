@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Include config file
 require_once "config.php";
 if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == true){
@@ -71,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: home.php");
+                header("location: index.php");
             } else{
                 echo "Oops! Něco se pokazilo, skuste to znovu později.";
             }
@@ -102,11 +103,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         .space{height: 10vh;}
 
     </style>
-    <?php $thisPage="Register"; ?>
+    <?php $thisPage="register"; ?>
     <?php include("scripts.php"); ?>
 </head>
 <body>
-<?php include("nav.php");  //TODO: e-mail a telefon do databáze?>
+<?php include("nav.php");?>
 <div class="space"></div>
     <div class="wrapper">
         <h2>Registrace</h2>

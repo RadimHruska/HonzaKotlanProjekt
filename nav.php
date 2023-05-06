@@ -1,18 +1,66 @@
+<?php
+// Include config file
+require_once "config.php";
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+?>
 <nav>  
 <ul>
 <li>
-<a href="home.php" <?php if ($thisPage=="Home") 
+<a href="index.php" <?php if ($thisPage=="Home") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-house" style="color: gray;"></i> Domů</a>
-<a href="stravenky.php" <?php if ($thisPage=="MealTickets") 
-echo " id=\"currentpage\""; ?>> <i class="fa-solid fa-receipt" style="color: gray;"></i> Stravenky</a>
 
+<a href="login.php" <?php if ($thisPage=="login") 
+echo " id=\"currentpage\""; ?>><i class="fa-solid fa-right-to-bracket" style="color: gray;"></i> Přihlásit</a>
 
-<a href="Users.php" <?php if ($thisPage=="Users") 
-echo " id=\"currentpage\""; ?>> <i class="fa-solid fa-users" style="color: gray;"></i> Uživatelé</a>
+<a href="register.php" <?php if ($thisPage=="register") 
+echo " id=\"currentpage\""; ?>><i class="fa-solid fa-user-plus" style="color: gray;"></i> Register</a>
+</nav>
+<?php       
+}
+else
+{
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["role"] == 1){
+        ?>    
+<nav>  
+<ul>
+<li>
+<a href="index.php" <?php if ($thisPage=="Home") 
+echo " id=\"currentpage\""; ?>><i class="fa-solid fa-house" style="color: gray;"></i> Domů</a>
 
 <a href="reset-password.php" <?php if ($thisPage=="Resset") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-key" style="color: gray;"></i> Změna hesla</a>
-<a href="logout.php" <?php if ($thisPage=="Logout") 
-echo " id=\"currentpage\""; ?>> <i class="fa-solid fa-arrow-right-from-bracket" style="color: gray;"></i>  Odhlásit</a></li>
 
-       </nav>
+
+<a href="logout.php" <?php if ($thisPage=="logout") 
+echo " id=\"currentpage\""; ?>><i class="fa-solid fa-right-from-bracket" style="color: gray;"></i> Odhlásit</a>
+</nav>
+
+
+
+
+        <?php  
+
+    }
+    else{
+        ?>    
+<nav>  
+<ul>
+<li>
+<a href="index.php" <?php if ($thisPage=="Home") 
+echo " id=\"currentpage\""; ?>><i class="fa-solid fa-house" style="color: gray;"></i> Domů</a>
+
+<a href="reset-password.php" <?php if ($thisPage=="Resset") 
+echo " id=\"currentpage\""; ?>><i class="fa-solid fa-key" style="color: gray;"></i> Změna hesla</a>
+
+
+<a href="logout.php" <?php if ($thisPage=="logout") 
+echo " id=\"currentpage\""; ?>><i class="fa-solid fa-right-from-bracket" style="color: gray;"></i> Odhlásit</a>
+</nav>
+
+
+
+
+        <?php  
+    }
+}
+?>
