@@ -20,14 +20,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if username is empty
     if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
+        $username_err = "Prosím zadejte uživatelské jméno.";
     } else{
         $username = trim($_POST["username"]);
     }
     
     // Check if password is empty
     if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter your password.";
+        $password_err = "Prosím zadejte heslo.";
     } else{
         $password = trim($_POST["password"]);
     }
@@ -107,7 +107,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
     <div class="space"></div>
     <div class="wrapper">
-        <h2>Stravování Kalasová</h2>
+        <h2>Chmela Cars Shop</h2>
 
         <?php 
         if(!empty($login_err)){

@@ -101,11 +101,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <?php include("scripts.php"); ?>
 </head>
 <body>
-<?php include("nav.php"); ?>
+<?php include("nav.php");  //TODO: e-mail a telefon do databáze?>
 <div class="space"></div>
     <div class="wrapper">
         <h2>Registrace</h2>
-        <p>Pro registraci dalšího zákazníka vyplňtě tento formulář.</p>
+        <p>Pro registraci vyplňte formulář.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Křestní jméno</label>
@@ -117,7 +117,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
-            
+            <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+            </div>
+            <div class="form-group">
+                <label>e-mail</label>
+                <input type="email" name="email" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Registrovat">
+            </div>
         </form>
     </div>    
 </body>
