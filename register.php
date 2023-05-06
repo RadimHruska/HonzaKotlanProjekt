@@ -6,7 +6,7 @@ if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == true){
     exit;
 }
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = "";
+$username = $password = $confirm_password = $phone = $email= "";
 $username_err = $password_err = $confirm_password_err = "";
  
 // Processing form data when form is submitted
@@ -37,9 +37,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $username_err = "Uživatel s tímto jménem již existuje.";
                 } else{
                     $username = trim($_POST["username"]);
+                    $password = trim($_POST["password"]);
+                    $email = trim($_POST["email"]);
+                    $phone = trim($_POST["phone"]);
                 }
             } else{
-                echo "Oops! Něco se pokazilo, zkuste to znovu později.";
+                echo "Oops! Něco se pokazilo, zkuste to znovu později (debug: inicializece).";
             }
 
             // Close statement
@@ -53,20 +56,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $sql = "INSERT INTO users (username, password, Phone, Email) VALUES (?, ?,?,?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password, $param_phone, $param_email);
             
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_phone = $phone;
+            $param_email = $email;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: index.php");
+                header("location: home.php");
             } else{
                 echo "Oops! Něco se pokazilo, skuste to znovu později.";
             }
@@ -119,12 +124,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div class="form-group">
                 <label>Telefon</label>
-                <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                <input type="text" name="phone" pattern="[0-9]{9}" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
                 <label>e-mail</label>
-                <input type="email" name="email" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                <input type="text" name="email" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
