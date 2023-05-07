@@ -51,7 +51,7 @@ echo " id=\"currentpage\""; ?>><?php echo  $_SESSION["username"];?></a>
 <ul>
 <li>
 <a href="index.php" <?php if ($thisPage=="Home") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-house" style="color: gray;"></i> Domů</a>
+echo " id=\"currentpage\""; ?>><i class="fa-solid fa-house" style="color: gray;"></i> AdminDomů</a>
 
 <a href="reset-password.php" <?php if ($thisPage=="Resset") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-key" style="color: gray;"></i> Změna hesla</a>
