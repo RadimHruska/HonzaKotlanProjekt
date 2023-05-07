@@ -1,90 +1,90 @@
 <?php
-// Initialize the session
+//  inicializuje sesion (paměť v prohlížeči)
 session_start();
  
-// Check if the user is already logged in, if yes then redirect him to welcome page
+// Zkontroluje jestly už je uživatel přihlášený, pokud ano, přesměruje ho na domovskou obrazovku
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: index.php");
     exit;
 }
  
-// Include config file
+// // přidá konfigurační soubur config.php
 require_once "config.php";
  
-// Define variables and initialize with empty values
+// Definuje proměné s prázdnými řetězci (používá se pro kontrolu dat)
 $username = $password = $role = "";
 $username_err = $password_err = $login_err = "";
  
-// Processing form data when form is submitted
+// zpracování dat po potvrzení formuláře
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if username is empty
+    // Kontroluje jestly je vyplněné uživatelské jméno
     if(empty(trim($_POST["username"]))){
         $username_err = "Prosím zadejte uživatelské jméno.";
     } else{
         $username = trim($_POST["username"]);
     }
     
-    // Check if password is empty
+    // Kontroluje jestly je vyplněné hesko
     if(empty(trim($_POST["password"]))){
         $password_err = "Prosím zadejte heslo.";
     } else{
         $password = trim($_POST["password"]);
     }
     
-    // Validate credentials
+    // ověření přihlašovacích údajů
     if(empty($username_err) && empty($password_err)){
-        // Prepare a select statement
+        // příprava sql select dotazu
         $sql = "SELECT id, username, password, role FROM users WHERE username = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
+            // přidání proměných k dotazu
             mysqli_stmt_bind_param($stmt, "s", $param_username);
             
-            // Set parameters
+            // nastavení parametrů dozazu
             $param_username = $username;
             
-            // Attempt to execute the prepared statement
+            // pokus o vykonání dotazu na přihlášení
             if(mysqli_stmt_execute($stmt)){
-                // Store result
+                // uložení výsledku
                 mysqli_stmt_store_result($stmt);
                 
-                // Check if username exists, if yes then verify password
+                // zkontroluje jestly existuje uživatel, pokud ano, pokračuje se ke kontrole hesla
                 if(mysqli_stmt_num_rows($stmt) == 1){                    
-                    // Bind result variables
+                    // připojení výsledků k proměným
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $role);
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
-                            // Password is correct, so start a new session
+                            // heslo je zprávné
                             session_start();
                             
-                            // Store data in session variables
+                            // Uložení všech dat do sesion proměných
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username; 
                             $_SESSION["role"] = $role;                             
                             
-                            // Redirect user to home page
+                            // přesměrování na home page
                             header("location: index.php");
                         } else{
-                            // Password is not valid, display a generic error message
+                            //Chyby při přihlášení, zobrazí error
                             $login_err = "Nesprávné uživatelské jméno nebo heslo.";
                         }
                     }
                 } else{
-                    // Username doesn't exist, display a generic error message
+                    // Uživatel neexistuje, zobrazí se chyba
                     $login_err = "Nesprávné uživatelské jméno nebo heslo.";
                 }
             } else{
                 echo "Oops! Něco se pokazilo, skuste to znovu později.";
             }
 
-            // Close statement
+            // zavře dotaz
             mysqli_stmt_close($stmt);
         }
     }
     
-    // Close connection
+    //zavře připojení
     mysqli_close($link);
 }
 ?>

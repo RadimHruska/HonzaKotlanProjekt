@@ -1,8 +1,6 @@
 <?php
-// Initialize the session
+//  inicializuje sesion (paměť v prohlížeči)
 session_start();
- 
-// Check if the user is logged in, if not then redirect him to login page
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +10,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" type="text/css" />
     <title>Kalasová stravování</title>
-    <?php include("scripts.php"); ?>
+    <?php //přidá skrypty potřebné pro ikonky
+    include("scripts.php"); ?>
 </head>
 <style>
     body{height: 100vh;}
@@ -20,7 +19,9 @@ session_start();
 <?php $thisPage="Home"; ?>
 
 <body>
-<?php include("nav.php"); ?>
+<?php
+//přidá navigaci a home menu
+include("nav.php"); ?>
 <?php include("homeMenu.php");?>
 </body>
 </html>

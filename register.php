@@ -1,16 +1,16 @@
 <?php
 session_start();
-// Include config file
+// přidá konfigurační soubor config.php
 require_once "config.php";
 if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == true){
     header("location: index.php");
     exit;
 }
-// Define variables and initialize with empty values
+// inicializuje proměné s prázdnými řetězci
 $username = $password = $confirm_password = $phone = $email= "";
 $username_err = $password_err = $confirm_password_err = "";
  
-// Processing form data when form is submitted
+// zpracování dat, po tom co je potvrzen formulář
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Validate username
@@ -19,19 +19,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
         $username_err = "Uživatelské jméno může obsahovat pouze malá a velká písmena, číslice a podtržítko.";
     } else{
-        // Prepare a select statement
+        // Připraví select sql dotaz
         $sql = "SELECT id FROM users WHERE username = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
+            // přidá parametry do swl dotazu
             mysqli_stmt_bind_param($stmt, "s", $param_username);
             
-            // Set parameters
+            // nastavení parametrů
             $param_username = trim($_POST["username"]);
             
-            // Attempt to execute the prepared statement
+            // pokus o v ykonání dotazu
             if(mysqli_stmt_execute($stmt)){
-                /* store result */
+                /* uložení hodnot do sesion */
                 mysqli_stmt_store_result($stmt);
                 
                 if(mysqli_stmt_num_rows($stmt) == 1){
@@ -46,43 +46,44 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "Oops! Něco se pokazilo, zkuste to znovu později (debug: inicializece).";
             }
 
-            // Close statement
+            // Zavření dotazu
             mysqli_stmt_close($stmt);
         }
     }
     
 
     
-    // Check input errors before inserting in database
+    // kontrola vstupních chyb před pokusem o zápis
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Prepare an insert statement
         $sql = "INSERT INTO users (username, password, Phone, Email) VALUES (?, ?,?,?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
+            // přidání proměných k sql dotazu
             mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_password, $param_phone, $param_email);
             
             // Set parameters
             $param_username = $username;
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Vytvoření šifrovaného hesla
             $param_phone = $phone;
             $param_email = $email;
             
-            // Attempt to execute the prepared statement
+            // pokus o provedení dotazu
             if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
-                header("location: index.php");
+                //přesměrováné na login page, po úspěšné registraci
+                header("location: login.php");
             } else{
+                //Error při vytváření uživatele
                 echo "Oops! Něco se pokazilo, skuste to znovu později.";
             }
 
-            // Close statement
+            // Zavření dotazu
             mysqli_stmt_close($stmt);
         }
     }
     
-    // Close connection
+    // Zavření připojení
     mysqli_close($link);
 }
 ?>

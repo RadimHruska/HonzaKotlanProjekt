@@ -1,15 +1,14 @@
 <?php
-/* Database credentials. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
+/* konfigurace databáze */
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
 define('DB_NAME', 'carsshop');
  
-/* Attempt to connect to MySQL database */
+/* pokus o připojení k databázi */
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
-// Check connection
+// kontrola připojení, když není připojeno, vyhodí error
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }

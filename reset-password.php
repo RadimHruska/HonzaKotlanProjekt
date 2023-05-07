@@ -1,26 +1,26 @@
 <?php $thisPage="Resset"; ?>
 <?php
-// Initialize the session
+//  inicializuje sesion (paměť v prohlížeči)
 session_start();
  
-// Check if the user is logged in, otherwise redirect to login page
+// zjistí jetly je uživatel přihlášený, pokud ne, přesěruje ho na domovskou stránku, protože tady nemá co dělat
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: index.php");
     exit;
 }
  
 
-// Include config file
+// přidá konfigurační souboer config.php pro připojení k databázi
 require_once "config.php";
  
-// Define variables and initialize with empty values
+// definice proměných s prázdnými řetězci (používají se pro ověření správně zadaných hodnot)
 $new_password = $confirm_password = "";
 $new_password_err = $confirm_password_err = "";
  
-// Processing form data when form is submitted
+// zpracování dat z formuláře po jeho odesláné
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Validate new password
+    // Kontrola parametrů nového hesla
     if(empty(trim($_POST["new_password"]))){
         $new_password_err = "Zadejte nové heslo.";     
     } elseif(strlen(trim($_POST["new_password"])) < 6){
@@ -29,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $new_password = trim($_POST["new_password"]);
     }
     
-    // Validate confirm password
+    // kontrola shody hesel
     if(empty(trim($_POST["confirm_password"]))){
         $confirm_password_err = "Prosím potvrdtě heslo.";
     } else{
@@ -39,35 +39,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
         
-    // Check input errors before updating the database
+    // kontrola chyb před pokusem o uložení dat do databáze
     if(empty($new_password_err) && empty($confirm_password_err)){
-        // Prepare an update statement
+        // příprava aktualizačního sql dotazu
         $sql = "UPDATE users SET password = ? WHERE id = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
+            // přidání proměných do dotazu
             mysqli_stmt_bind_param($stmt, "si", $param_password, $param_id);
             
             // Set parameters
             $param_password = password_hash($new_password, PASSWORD_DEFAULT);
             $param_id = $_SESSION["id"];
             
-            // Attempt to execute the prepared statement
+            // pokus o vykonání dotazu
             if(mysqli_stmt_execute($stmt)){
-                // Password updated successfully. Destroy the session, and redirect to login page
+                // heslo se aktualizovalo správně, zavře sesion a přesměruje na login, pro nové přihlášení
                 session_destroy();
-                header("location: index.php");
+                header("location: login.php");
                 exit();
             } else{
+                //Chyba, ukáže chybu
                 echo "Oops! Něco se pokazilo, skuste to znovu později.";
             }
 
-            // Close statement
+            // zavře dotaz
             mysqli_stmt_close($stmt);
         }
     }
     
-    // Close connection
+    // Czavře připojení do databáze
     mysqli_close($link);
 }
 ?>
@@ -76,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Kalasová stravování</title>
+    <title>carsshop</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css" type="text/css" />
     <style>

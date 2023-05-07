@@ -1,14 +1,14 @@
 <?php
-// Initialize the session
+// //  inicializuje sesion (paměť v prohlížeči)
 session_start();
  
-// Unset all of the session variables
+//vynuluje všechny paraetry sesion
 $_SESSION = array();
  
-// Destroy the session.
+//Zničí sesion
 session_destroy();
  
-// Redirect to login page
+// přesměrování na domovskou obrazovku
 header("location: index.php");
 exit;
 ?>

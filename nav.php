@@ -1,6 +1,8 @@
 <?php
-// Include config file
+// přidá konfigurační soubur config.php
 require_once "config.php";
+
+//Zkontroluje zda je uživatel přihlášen, pokud ne ukáže navigaci pro nepřihlášeného uživatele
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 ?>
 <nav>  
@@ -19,6 +21,7 @@ echo " id=\"currentpage\""; ?>><i class="fa-solid fa-user-plus" style="color: gr
 }
 else
 {
+    //pokud je uživatel přihlášený a není admin, ukáže se mu menu pro neadmina
     if(!isset($_SESSION["loggedin"]) || $_SESSION["role"] == 1){
         ?>    
 <nav>  
@@ -33,15 +36,16 @@ echo " id=\"currentpage\""; ?>><i class="fa-solid fa-key" style="color: gray;"><
 
 <a href="logout.php" <?php if ($thisPage=="logout") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-right-from-bracket" style="color: gray;"></i> Odhlásit</a>
+
+
+<a  <?php if ($thisPage=="logout") 
+echo " id=\"currentpage\""; ?>><?php echo  $_SESSION["username"];?></a>
 </nav>
-
-
-
-
-        <?php  
+ <?php  
 
     }
     else{
+        //ve všech ostatních případech je uživatel admin a ukáže se mu menu pro admina
         ?>    
 <nav>  
 <ul>
@@ -55,6 +59,8 @@ echo " id=\"currentpage\""; ?>><i class="fa-solid fa-key" style="color: gray;"><
 
 <a href="logout.php" <?php if ($thisPage=="logout") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-right-from-bracket" style="color: gray;"></i> Odhlásit</a>
+<a  <?php if ($thisPage=="logout") 
+echo " id=\"currentpage\""; ?>><?php echo  $_SESSION["username"];?></a>
 </nav>
 
 
