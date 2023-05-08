@@ -1,5 +1,15 @@
-body {background-image: url("pic/loginBackground.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; margin: 0px; margin-top: 0px;  height: 100vh;}
+body {background-image: url("pic/loginBackground.jpeg"); 
+  background-repeat: repeat-y; 
+  background-position: center; 
+  background-size: cover; 
+  margin: 0px; 
+  margin-top: 0px;  
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 #obalovaci {margin: 0px auto; position: relative; width:800px;}
+#obalovaciMenu {margin: 0px auto; position: relative; width:800px; height: 100vh;}
 #backgroundBlock {background-color: white; padding: 30px; border-radius: 10px; margin-top: 10px;}
 .space{height: 10vh;}
 
@@ -89,11 +99,27 @@ color: black;
     border-radius: 10px;
     text-align: center;
      }
-
+     .produktFieldDiv h1{
+      margin: 0;
+      padding-top:0;
+    }
      .productContainer{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 20px;
     }
+
+
+    footer
+{
+    text-align: center;
+    height: 60px;
+    padding: 10px 0;
+    background: black;
+    color: white;
+}
+
+
+
 
   

@@ -23,5 +23,6 @@ session_start();
 //přidá navigaci a home menu
 include("nav.php"); ?>
 <?php include("homeMenu.php");?>
+<?php include("footer.php"); ?>
 </body>
 </html>

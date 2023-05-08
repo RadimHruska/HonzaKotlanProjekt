@@ -138,6 +138,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" class="btn btn-primary" value="Registrovat">
             </div>
         </form>
-    </div>    
+    </div>  
+    <?php include("footer.php"); ?>  
 </body>
 </html>

@@ -43,12 +43,11 @@ if($stmt = mysqli_prepare($link, $sql)){
         while($row = $query->fetch_assoc()) {
             echo " <a class='nemuField' href='dodavka.php'> ";
             echo  "<div class='menuFieldDiv'>";
+            
             echo "<img src='"."pic/products/".$row['pic']."' width='100%'></img>";
-            echo $row['id'];
-            echo $row['nazev'];
-            echo $row['typ'];
-            echo $row['cena'];
-            echo $row['pocet'];
+            echo "<h1>".$row['nazev']." </h1><br>";
+            echo $row['cena'].",-<br>";
+            echo "Skladem ".$row['pocet']." kusů"."<br>";
             echo "</div>";
             echo "</a>";
         }
@@ -57,5 +56,7 @@ if($stmt = mysqli_prepare($link, $sql)){
 ?>
 </div>
 </div>
+<div class="space"></div> 
+<?php include("footer.php"); ?>
 </body>
 </html>

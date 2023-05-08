@@ -61,5 +61,6 @@ $sql = "SELECT id, username, role, phone, email FROM users";
         ?>
         </div>
 </div>
+<?php include("footer.php"); ?>
 </body>
 </html>
