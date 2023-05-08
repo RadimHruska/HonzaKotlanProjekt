@@ -41,7 +41,7 @@ if($stmt = mysqli_prepare($link, $sql)){
  $query = mysqli_query($link, $sql);
     if ($query->num_rows > 0) {   
         while($row = $query->fetch_assoc()) {
-            echo " <a class='nemuField' href='dodavka.php'> ";
+            echo " <a class='nemuField' href='detail.php?id=".$row['id']."'> ";
             echo  "<div class='menuFieldDiv'>";
             
             echo "<img src='"."pic/products/".$row['pic']."' width='100%'></img>";
