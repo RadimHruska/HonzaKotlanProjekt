@@ -60,7 +60,6 @@ border-color: black;
   grid-gap: 20px;
 }
 
-
 .nemuFieldDiv h1{
   margin: 0;
   padding-top: 5vh;
@@ -69,7 +68,6 @@ border-color: black;
 text-decoration: none;
 color: black;
 }
-
 .nemuFieldDiv{
  height: 15vh;
  width: 400px;
@@ -78,5 +76,24 @@ color: black;
  border-radius: 10px;
  text-align: center;
   }
+
+  .productField{
+    text-decoration: none;
+    color: black;
+    }
+  .produktFieldDiv{
+    height: 40vh;
+    width: 400px;
+    background-color: white;
+    font-size: large;
+    border-radius: 10px;
+    text-align: center;
+     }
+
+     .productContainer{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 20px;
+    }
 
   
