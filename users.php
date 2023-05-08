@@ -1,8 +1,8 @@
 <?php
-// Initialize the session
+// Inicializuje sesion
 session_start();
  
-// Check if the user is logged in, if not then redirect him to login page
+// zkontroluje jestly je uživatel přihlášen a jestly má správnou roly pro přístup do tebulky uživatelů
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || $_SESSION["role"] == 1){
     header("location: index.php");
     exit;
@@ -43,7 +43,7 @@ $sql = "SELECT id, username, role, phone, email FROM users";
         echo "<th>role</th>";
         echo "</tr>";
 
-
+    //dotaz a následný výpis uživatelů
         $query = mysqli_query($link, $sql);
         if ($query->num_rows > 0) {   
             while($row = $query->fetch_assoc()) {
