@@ -41,11 +41,10 @@ if($stmt = mysqli_prepare($link, $sql)){
  $query = mysqli_query($link, $sql);
     if ($query->num_rows > 0) {   
         while($row = $query->fetch_assoc()) {
-            echo " <a class='nemuField' href='detail.php?id=".$row['id']."'> ";
-            echo  "<div class='menuFieldDiv'>";
-            
-            echo "<img src='"."pic/products/".$row['pic']."' width='100%'></img>";
-            echo "<h1>".$row['nazev']." </h1><br>";
+            echo " <a class='nemuField' href='detail.php?id=".$row['id']."' style='border-radius: 10px;  background-color: white;'> ";
+            echo "<img src='"."pic/products/".$row['pic']."' width='90%' style='padding: 15px;'></img>";
+            echo "<h1 style='text-align: center;'>".$row['nazev']." </h1><br>";
+            echo " <div style='text-align: right; padding: 30px;'>";
             echo $row['cena'].",-<br>";
             echo "Skladem ".$row['pocet']." kusů"."<br>";
             echo "</div>";
@@ -55,8 +54,9 @@ if($stmt = mysqli_prepare($link, $sql)){
 }
 ?>
 </div>
-</div>
 <div class="space"></div> 
+</div>
+
 <?php include("footer.php"); ?>
 </body>
 </html>
