@@ -31,13 +31,11 @@ session_start();
 
 
  //výběr položek
-$typ = "dil";
 $sql = "SELECT id, nazev, typ, cena, pocet, pic FROM zbozi where typ = 'dil'";
 
 if($stmt = mysqli_prepare($link, $sql)){
     // přidání proměných k dotazu
     //mysqli_stmt_bind_param($stmt, "enum", $param_typ);
-    $param_typ = $typ;
  $query = mysqli_query($link, $sql);
     if ($query->num_rows > 0) {   
         while($row = $query->fetch_assoc()) {
