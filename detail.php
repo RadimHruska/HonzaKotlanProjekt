@@ -43,15 +43,26 @@ $sql = "SELECT id, nazev, typ, cena, pocet, pic, description FROM zbozi WHERE id
                     // připojení výsledků k proměným
                     mysqli_stmt_bind_result($stmt, $id, $nazev, $typ, $cena, $pocet, $pic, $description);
                     if(mysqli_stmt_fetch($stmt)){
-
-                        echo $id;
-                        echo $nazev;
-                        echo $typ;
-                        echo $cena;
-                        echo $pocet;
-                        echo $pic;
-                        echo $description;
+                    ?>
                 
+                    <div id="obalovaci">
+                    <div class="space"></div>
+                    <div id="backgroundBlock">
+
+                    <?php
+                        echo "<h1>$nazev </h1>";
+                        echo "<img src='"."pic/products/".$pic."' width='90%' style='padding: 15px;'></img>";
+                        echo "<h3 style='color: green;'> $cena,- </h3>";
+
+                        echo "<h3>Popis:</h3>";
+                        echo $pocet;
+                        
+                        echo $description;
+                    ?>
+                    </div>
+                    <div class="space"></div>
+                    </div>
+                    <?php
                     }
                 }
             } 
@@ -59,9 +70,6 @@ $sql = "SELECT id, nazev, typ, cena, pocet, pic, description FROM zbozi WHERE id
 
 
 ?>
-
-
-
 
 <?php include("footer.php"); ?>
 </body>
