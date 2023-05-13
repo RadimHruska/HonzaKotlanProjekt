@@ -1,5 +1,7 @@
 <?php
 //  inicializuje sesion (paměť v prohlížeči)
+
+include("cartItem.php");
 session_start();
 ?>
 <!DOCTYPE html>
@@ -24,33 +26,39 @@ include("nav.php"); ?>
 
 <?php
 $cartItems = 0;
-$cart = $_SESSION["cart"]; 
 ?>
-<table>
+    <div id="obalovaci">
+    <div class="space"></div>
+        <div id="backgroundBlock">
+<table style="margin: auto;">
 <tr>
-        <th>Id produktu</th>
+        <th>Id</th>
         <th>Produkt</th>
         <th>Počet</th>
         <th>Cena</th>
 </tr>
 
 <?php
-include("cartItem.php");
+$cart = $_SESSION["cart"]; 
 foreach($cart as $item)
-{
-    //$item = unserialize($SerItem);
-    //echo  "<tr>";
-    //echo "<td>".$item -> get_Id."</td>";
-    //echo "<td>" .$item -> get_Nazev."</td>";
-    //echo "<td>".$$item -> get_Pocet."</td>";
-    //echo "<td>".$$item -> get_Cena."</td>";
-    //echo "</tr>"; 
-    echo "<pre>";
-    print_r($_SESSION['cart']); 
-    echo "</pre>";
+{    
+    
+    echo  "<tr>";
+    echo "<td>".$item ->get_Id()."</td>";
+    echo "<td>" .$item -> get_Nazev()."</td>";
+    echo "<td>".$item -> get_Pocet()."</td>";
+    echo "<td>".$item -> get_Cena()."</td>";
+    echo "</tr>"; 
+
 }
 ?>
 </table>
+<form method="post" action="handle_form.php">
+    <input type="submit" name="submit_button" value="Nakoupit" />
+</form>
+        </div>
+        <div class="space"></div>
+    </div>
 <?php include("footer.php"); ?>
 </body>
 </html>
