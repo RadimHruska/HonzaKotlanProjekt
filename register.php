@@ -2,10 +2,13 @@
 session_start();
 // přidá konfigurační soubor config.php
 require_once "config.php";
+if(isset($_SESSION["loggedin"])){
 if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == true){
     header("location: index.php");
     exit;
 }
+}
+
 // inicializuje proměné s prázdnými řetězci
 $username = $password = $confirm_password = $phone = $email= "";
 $username_err = $password_err = $confirm_password_err = "";

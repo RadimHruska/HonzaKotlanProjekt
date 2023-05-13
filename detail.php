@@ -44,7 +44,27 @@ $sql = "SELECT id, nazev, typ, cena, pocet, pic, description FROM zbozi WHERE id
                     mysqli_stmt_bind_result($stmt, $id, $nazev, $typ, $cena, $pocet, $pic, $description);
                     if(mysqli_stmt_fetch($stmt)){
                     ?>
-                
+                     <?php //správa košíku
+                  
+
+                  if(isset($_SESSION["loggedin"])){
+                    if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == true){
+                        if(isset($_GET['AddCart'])){
+                        include("cartItem.php");
+                            
+                            $item = new CartItem();
+                            $item -> set_Id($id);
+                            $item -> set_Cena($cena);
+                            $item -> set_Nazev($nazev);
+                            $item -> set_Pocet('1');
+                            array_push($_SESSION['cart'], $item);
+
+                        }
+
+                    }
+                    }
+    ?>
+
                     <div id="obalovaci">
                     <div class="space"></div>
                     <div id="backgroundBlock">
@@ -52,11 +72,8 @@ $sql = "SELECT id, nazev, typ, cena, pocet, pic, description FROM zbozi WHERE id
                     <?php
                         echo "<h1>$nazev </h1>";
                         echo "<img src='"."pic/products/".$pic."' width='90%' style='padding: 15px;'></img>";
-                        echo "<h3 style='color: green;'> $cena,- </h3>";
-
-                        echo "<h3>Popis:</h3>";
-                        echo $pocet;
-                        
+                        echo "<h3 style='color: green;'> $cena,- &emsp; &emsp; &emsp; &emsp; &emsp;  &emsp;  &emsp;  &emsp; &emsp;  &emsp;  &emsp;  &emsp;  &emsp; &emsp; &emsp; &emsp;  &emsp;  &emsp; &emsp; &emsp; &emsp;    <a href='detail.php?id=".$id."&AddCart=AP'>Přidat do košíku</a> </h3>";
+                        echo "<h3>Popis:</h3>";                        
                         echo $description;
                     ?>
                     </div>

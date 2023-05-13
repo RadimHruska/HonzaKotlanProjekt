@@ -70,6 +70,8 @@ echo " id=\"currentpage\""; ?>><i class="fa-solid fa-key" style="#000000;"></i> 
 <a href="logout.php" <?php if ($thisPage=="logout") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-right-from-bracket" style="#000000;"></i> Odhlásit</a>
 
+<a href="cart.php" <?php if ($thisPage=="cart") 
+echo " id=\"currentpage\""; ?>><i class="fa-solid fa-cart-shopping" style="color: #000000;"></i></a>
 
 <a  <?php if ($thisPage=="logout") 
 echo " id=\"currentpage\""; ?>><?php echo  $_SESSION["username"];?></a>

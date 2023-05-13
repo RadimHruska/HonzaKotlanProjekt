@@ -64,6 +64,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["username"] = $username; 
                             $_SESSION["role"] = $role;                             
                             
+                            //nastaví prázdný košík
+                            $cart = [];
+                            $_SESSION["cart"] = array(); 
+
                             // přesměrování na home page
                             header("location: index.php");
                         } else{
