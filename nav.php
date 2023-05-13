@@ -73,7 +73,7 @@ echo " id=\"currentpage\""; ?>><i class="fa-solid fa-right-from-bracket" style="
 <a href="cart.php" <?php if ($thisPage=="cart") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-cart-shopping" style="color: #000000;"></i></a>
 
-<a  <?php if ($thisPage=="logout") 
+<a  href="itemsInCart.php" <?php if ($thisPage=="userPage") 
 echo " id=\"currentpage\""; ?>><?php echo  $_SESSION["username"];?></a>
 
 

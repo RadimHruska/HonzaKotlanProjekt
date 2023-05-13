@@ -56,7 +56,7 @@ if($stmt = mysqli_prepare($link, $sql)){
     
 
 }
-
+$_SESSION["cart"] = array();
         header("location: index.php");
     } else{
         //Error při vytváření uživatele
