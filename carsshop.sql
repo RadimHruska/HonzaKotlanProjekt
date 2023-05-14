@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: May 11, 2023 at 07:18 PM
+-- Generation Time: May 14, 2023 at 12:06 AM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -35,6 +35,18 @@ CREATE TABLE `poloznanauctence` (
   `iductenka` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `poloznanauctence`
+--
+
+INSERT INTO `poloznanauctence` (`id`, `idzbozi`, `mnoztvi`, `aktualniCena`, `iductenka`) VALUES
+(1, 10, 1, 3000, 6),
+(2, 9, 1, 1000, 6),
+(3, 3, 1, 500000, 6),
+(4, 10, 1, 3000, 7),
+(5, 9, 1, 1000, 7),
+(6, 3, 1, 500000, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -45,9 +57,21 @@ CREATE TABLE `uctenka` (
   `id` int(11) NOT NULL,
   `iduzivatele` int(11) NOT NULL,
   `datum` date NOT NULL,
-  `vysCena` int(11) NOT NULL,
   `adresa` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `uctenka`
+--
+
+INSERT INTO `uctenka` (`id`, `iduzivatele`, `datum`, `adresa`) VALUES
+(1, 8, '2023-05-13', 'sdfdf'),
+(2, 8, '2023-05-13', 'sdfdf'),
+(3, 8, '2023-05-13', 'sdfdf'),
+(4, 8, '2023-05-13', 'sdfdf'),
+(5, 8, '2023-05-13', 'sdfdf'),
+(6, 8, '2023-05-13', 'sdfdf'),
+(7, 8, '2023-05-13', 'sdfdf');
 
 -- --------------------------------------------------------
 
@@ -149,13 +173,13 @@ ALTER TABLE `zbozi`
 -- AUTO_INCREMENT for table `poloznanauctence`
 --
 ALTER TABLE `poloznanauctence`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `uctenka`
 --
 ALTER TABLE `uctenka`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
