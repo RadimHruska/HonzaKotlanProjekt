@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: May 14, 2023 at 12:06 AM
--- Server version: 5.7.39
--- PHP Version: 8.2.0
+-- Počítač: 127.0.0.1
+-- Vytvořeno: Ned 21. kvě 2023, 13:50
+-- Verze serveru: 10.4.27-MariaDB
+-- Verze PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `carsshop`
+-- Databáze: `carsshop`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `poloznanauctence`
+-- Struktura tabulky `poloznanauctence`
 --
 
 CREATE TABLE `poloznanauctence` (
@@ -33,50 +33,25 @@ CREATE TABLE `poloznanauctence` (
   `mnoztvi` int(11) NOT NULL,
   `aktualniCena` int(11) NOT NULL,
   `iductenka` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `poloznanauctence`
---
-
-INSERT INTO `poloznanauctence` (`id`, `idzbozi`, `mnoztvi`, `aktualniCena`, `iductenka`) VALUES
-(1, 10, 1, 3000, 6),
-(2, 9, 1, 1000, 6),
-(3, 3, 1, 500000, 6),
-(4, 10, 1, 3000, 7),
-(5, 9, 1, 1000, 7),
-(6, 3, 1, 500000, 7);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `uctenka`
+-- Struktura tabulky `uctenka`
 --
 
 CREATE TABLE `uctenka` (
   `id` int(11) NOT NULL,
   `iduzivatele` int(11) NOT NULL,
   `datum` date NOT NULL,
-  `adresa` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `uctenka`
---
-
-INSERT INTO `uctenka` (`id`, `iduzivatele`, `datum`, `adresa`) VALUES
-(1, 8, '2023-05-13', 'sdfdf'),
-(2, 8, '2023-05-13', 'sdfdf'),
-(3, 8, '2023-05-13', 'sdfdf'),
-(4, 8, '2023-05-13', 'sdfdf'),
-(5, 8, '2023-05-13', 'sdfdf'),
-(6, 8, '2023-05-13', 'sdfdf'),
-(7, 8, '2023-05-13', 'sdfdf');
+  `vysCena` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktura tabulky `users`
 --
 
 CREATE TABLE `users` (
@@ -86,60 +61,64 @@ CREATE TABLE `users` (
   `Role` enum('1','2') NOT NULL DEFAULT '1',
   `Phone` varchar(9) NOT NULL,
   `Email` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Vypisuji data pro tabulku `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `Role`, `Phone`, `Email`) VALUES
 (2, 'honza', '$2y$10$K6xJpbDa53kWmRNxFx3S6eJvN/8uN09mvcw.ZrlrVbst7c1KPFXRC', '2', '', ''),
 (5, 'radim', '$2y$10$hsxxkFmctKeua4DyuR4QeuePUpZ0A4E.8VNFYuJLC6xZDCfWEqTZ2', '2', '', ''),
-(6, 'sdf', '$2y$10$V/zPSpYxbgXmVw70vKWEM.59ZVrwU3Qd/5y27NqvwMOWABPP.HoBy', '1', '', ''),
-(7, 'RadimWithParams', '$2y$10$rjMeJfIHyIvMdGH97do2l.YGvAz1ue.SHPkSWTTatfjUKy9aXbsM2', '1', '666666666', 'hruska@hell.com'),
-(8, 'r', '$2y$10$A429mIuOU3wsJHr7g/g7Ze.Dg1hy4TFuHQ9yK5n8TLwVGKu8UIvgG', '1', '333333333', 'dsf'),
-(9, 'a', '$2y$10$jNAFDmPSyQN96pBsVbbpPu3PZBzpIu2QllifLKzd0O62w4FdzvK4u', '2', '666666666', 'dfs');
+(6, 'sdf', '$2y$10$V/zPSpYxbgXmVw70vKWEM.59ZVrwU3Qd/5y27NqvwMOWABPP.HoBy', '1', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `zbozi`
+-- Struktura tabulky `zbozi`
 --
 
 CREATE TABLE `zbozi` (
   `id` int(11) NOT NULL,
   `nazev` varchar(50) NOT NULL,
-  `typ` enum('sportovni','osobni','dodavka','dil','doplnek') NOT NULL,
+  `typ` varchar(30) NOT NULL,
   `cena` int(11) NOT NULL,
   `pocet` int(11) NOT NULL,
-  `pic` varchar(50) NOT NULL,
-  `description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `pic` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `zbozi`
+-- Vypisuji data pro tabulku `zbozi`
 --
 
-INSERT INTO `zbozi` (`id`, `nazev`, `typ`, `cena`, `pocet`, `pic`, `description`) VALUES
-(1, 'Auto', 'sportovni', 1000000, 2, '', ''),
-(3, 'dodávka', 'dodavka', 500000, 1, '', ''),
-(4, 'rgb pásek', 'doplnek', 1000, 5, '', ''),
-(9, 'kolo', 'dil', 1000, 2, 'PIC-57A601012DJ-1.jpg', ''),
-(10, 'Nárazník', 'dil', 3000, 10, 'predni-naraznik-bmw-f30-f31-m3-style-11-pdc.jpg', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc tincidunt ante vitae massa. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Fusce tellus. Nulla pulvinar eleifend sem. Nullam sit amet magna in magna gravida vehicula. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Aliquam erat volutpat. Nullam eget nisl. Maecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Aliquam erat volutpat. Ut tempus purus at lorem. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Suspendisse nisl. Nulla est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Integer pellentesque quam vel velit.\r\n\r\nPellentesque ipsum. Phasellus et lorem id felis nonummy placerat. Nullam sit amet magna in magna gravida vehicula. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Phasellus et lorem id felis nonummy placerat. Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Duis condimentum augue id magna semper rutrum. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam. Praesent in mauris eu tortor porttitor accumsan. Integer lacinia. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Curabitur sagittis hendrerit ante. Etiam quis quam. Mauris elementum mauris vitae tortor. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem. Nulla est.\r\n\r\nMaecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Curabitur ligula sapien, pulvinar a vestibulum quis, facilisis vel sapien. Aliquam erat volutpat. Duis viverra diam non justo. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus. Etiam quis quam. Etiam bibendum elit eget erat. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Nullam sapien sem, ornare ac, nonummy non, lobortis a enim. Integer imperdiet lectus quis justo. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Integer imperdiet lectus quis justo. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Duis sapien nunc, commodo et, interdum suscipit, sollicitudin et, dolor.'),
-(12, 'rgb pásek', 'doplnek', 1000, 5, '', ''),
-(15, 'kolo', 'dil', 1000, 2, 'PIC-57A601012DJ-1.jpg', ''),
-(16, 'Stěrač', 'dil', 30, 2, 'sterace-280-mm.jpg', ''),
-(17, 'Stěrač', 'dil', 30, 2, 'sterace-280-mm.jpg', ''),
-(18, 'kolo', 'dil', 1000, 2, 'PIC-57A601012DJ-1.jpg', ''),
-(19, 'kolo', 'dil', 1000, 2, 'PIC-57A601012DJ-1.jpg', ''),
-(20, 'Nárazník', 'dil', 3000, 10, 'predni-naraznik-bmw-f30-f31-m3-style-11-pdc.jpg', '');
+INSERT INTO `zbozi` (`id`, `nazev`, `typ`, `cena`, `pocet`, `pic`) VALUES
+(7, 'přední nárazník', 'dil', 6000, 3, 'predni-naraznik-bmw-f30-f31-m3-style-11-pdc.jpg'),
+(8, 'pneu', 'dil', 3000, 10, 'PIC-57A601012DJ-1.jpg'),
+(9, 'Mustang', 'sportovni', 4500000, 1, 'sportovní1.jpg'),
+(10, 'Supra', 'sportovni', 2000000, 3, 'sportovní2.jpg'),
+(11, 'Dodge', 'sportovni', 1500000, 3, 'sportovní4.jpg'),
+(12, 'Gtr', 'sportovni', 2100000, 5, 'sportovní3.jpg'),
+(13, 'zrcátko', 'dil', 2000, 20, 'zrcátko.jpg'),
+(14, 'man', 'dodavka', 350000, 3, 'dodavka3.jpg'),
+(15, 'iveco', 'dodavka', 400000, 1, 'dodavka2.jpg'),
+(16, 'mercedes', 'dodavka', 800000, 2, 'dodavka4.png'),
+(17, 'fiat', 'dodavka', 160000, 5, 'dodavka1.jpg'),
+(18, 'pneu', 'dil', 1000, 30, 'výfuk.jpg'),
+(19, 'střešní nosič', 'doplnek', 1500, 20, 'nosiče.jpg'),
+(20, 'spoiker', 'doplnek', 2500, 10, 'spoiler.jpg'),
+(21, 'podsvícení', 'doplnek', 1000, 40, 'ledPodsvícení.jpg'),
+(22, 'tažná koule', 'doplnek', 3500, 12, 'tažné.jpg'),
+(23, 'ford', 'osobni', 200000, 3, 'ford.jpg'),
+(24, 'renault', 'osobni', 300000, 2, 'renault.jpg'),
+(25, 'peugeot', 'osobni', 300000, 2, 'peugeot.jpg'),
+(26, 'mazda', 'osobni', 500000, 3, 'mazda.jpg');
 
 --
--- Indexes for dumped tables
+-- Indexy pro exportované tabulky
 --
 
 --
--- Indexes for table `poloznanauctence`
+-- Indexy pro tabulku `poloznanauctence`
 --
 ALTER TABLE `poloznanauctence`
   ADD PRIMARY KEY (`id`),
@@ -147,65 +126,65 @@ ALTER TABLE `poloznanauctence`
   ADD KEY `iductenka` (`iductenka`);
 
 --
--- Indexes for table `uctenka`
+-- Indexy pro tabulku `uctenka`
 --
 ALTER TABLE `uctenka`
   ADD PRIMARY KEY (`id`),
   ADD KEY `iduzivatele` (`iduzivatele`);
 
 --
--- Indexes for table `users`
+-- Indexy pro tabulku `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `zbozi`
+-- Indexy pro tabulku `zbozi`
 --
 ALTER TABLE `zbozi`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pro tabulky
 --
 
 --
--- AUTO_INCREMENT for table `poloznanauctence`
+-- AUTO_INCREMENT pro tabulku `poloznanauctence`
 --
 ALTER TABLE `poloznanauctence`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pro tabulku `uctenka`
+--
+ALTER TABLE `uctenka`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pro tabulku `users`
+--
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `uctenka`
---
-ALTER TABLE `uctenka`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `zbozi`
+-- AUTO_INCREMENT pro tabulku `zbozi`
 --
 ALTER TABLE `zbozi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- Constraints for dumped tables
+-- Omezení pro exportované tabulky
 --
 
 --
--- Constraints for table `poloznanauctence`
+-- Omezení pro tabulku `poloznanauctence`
 --
 ALTER TABLE `poloznanauctence`
   ADD CONSTRAINT `poloznanauctence_ibfk_1` FOREIGN KEY (`idzbozi`) REFERENCES `zbozi` (`id`),
   ADD CONSTRAINT `poloznanauctence_ibfk_2` FOREIGN KEY (`iductenka`) REFERENCES `uctenka` (`id`);
 
 --
--- Constraints for table `uctenka`
+-- Omezení pro tabulku `uctenka`
 --
 ALTER TABLE `uctenka`
   ADD CONSTRAINT `uctenka_ibfk_1` FOREIGN KEY (`iduzivatele`) REFERENCES `users` (`id`);

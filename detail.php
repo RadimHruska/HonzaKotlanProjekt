@@ -1,5 +1,5 @@
 <?php
-//  inicializuje sesion (paměť v prohlížeči)
+
 session_start();
 ?>
 <!DOCTYPE html>
@@ -10,59 +10,57 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" type="text/css" />
     <title>Carsshop</title>
-    <?php //přidá skrypty potřebné pro ikonky
+    <?php 
     include("scripts.php"); ?>
 </head>
 <style>
     body{height: 100vh;}
-    </style>
+</style>
 <?php $thisPage="Detail"; ?>
 
 <body>
 <?php
-//přidá navigaci a home menu
+
 include("nav.php"); 
 
 
 $sql = "SELECT id, nazev, typ, cena, pocet, pic, description FROM zbozi WHERE id = ?";
         
-        if($stmt = mysqli_prepare($link, $sql)){
-            // přidání proměných k dotazu
-            mysqli_stmt_bind_param($stmt, "s", $param_id);
-            
-            // nastavení parametrů dozazu
-            $param_id = $_GET['id'];
-            
-            // pokus o vykonání dotazu na přihlášení
-            if(mysqli_stmt_execute($stmt)){
-                // uložení výsledku
-                mysqli_stmt_store_result($stmt);
-                
-                // zkontroluje jestly existuje uživatel, pokud ano, pokračuje se ke kontrole hesla
-                if(mysqli_stmt_num_rows($stmt) == 1){                    
-                    // připojení výsledků k proměným
-                    mysqli_stmt_bind_result($stmt, $id, $nazev, $typ, $cena, $pocet, $pic, $description);
-                    if(mysqli_stmt_fetch($stmt)){
-                    ?>
-                     <?php //správa košíku
-                  
+if($stmt = mysqli_prepare($link, $sql)){
+    // Přidání proměnných k dotazu
+    mysqli_stmt_bind_param($stmt, "s", $param_id);
+    // Nastavení parametrů dotazu
+    $param_id = $_GET['id'];
 
-                  if(isset($_SESSION["loggedin"])){
-                    if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == true){
-                        if(isset($_GET['AddCart'])){
+    // Pokus o vykonání dotazu
+    if(mysqli_stmt_execute($stmt)){
+        // Uložení výsledku
+        mysqli_stmt_store_result($stmt);
+
+        // Kontrola, zda existuje záznam
+        if(mysqli_stmt_num_rows($stmt) == 1){
+            // Připojení výsledků k proměnným
+            mysqli_stmt_bind_result($stmt, $id, $nazev, $typ, $cena, $pocet, $pic, $description);
+            if(mysqli_stmt_fetch($stmt)){
+            ?>
+             <?php 
+
+            if(isset($_SESSION["loggedin"])){
+                if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == true){
+                    if(isset($_GET['AddCart'])){
                         include("cartItem.php");
                             
-                            $item = new CartItem();
-                            $item -> set_Id($id);
-                            $item -> set_Cena($cena);
-                            $item -> set_Nazev($nazev);
-                            $item -> set_Pocet('1');
-                            array_push($_SESSION['cart'], $item);
-
-                        }
+                        $item = new CartItem();
+                        $item -> set_Id($id); // Nastavení ID zboží do instance třídy
+                        $item -> set_Cena($cena); // Nastavení ceny zboží do instance třídy
+                        $item -> set_Nazev($nazev); // Nastavení názvu zboží do instance třídy
+                        $item -> set_Pocet('1'); // Nastavení počtu kusů zboží do instance třídy
+                        array_push($_SESSION['cart'], $item); // Přidání instance třídy do pole košíku
 
                     }
-                    }
+
+                }
+            }
     ?>
 
                     <div id="obalovaci">
@@ -84,8 +82,6 @@ $sql = "SELECT id, nazev, typ, cena, pocet, pic, description FROM zbozi WHERE id
                 }
             } 
         }       
-
-
 ?>
 
 <?php include("footer.php"); ?>
