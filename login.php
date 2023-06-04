@@ -116,7 +116,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <?php include("nav.php");?>
     <div class="space"></div>
     <div class="wrapper">
-        <h2>Chmela Cars Shop</h2>
+        <h2>Hadry</h2>
 
         <?php 
         if(!empty($login_err)){

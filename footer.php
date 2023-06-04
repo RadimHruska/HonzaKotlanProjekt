@@ -1,5 +1,5 @@
 <footer>
-Carsshop s.r.o.<br>
-Jan Chmela<br>
+HadroSvět s.r.o.<br>
+Martin Jeveškole<br>
 
     </footer>

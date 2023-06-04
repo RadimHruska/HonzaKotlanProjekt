@@ -9,14 +9,14 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" type="text/css" />
-    <title>Carsshop</title>
+    <title>Kalasová stravování</title>
     <?php //přidá skrypty potřebné pro ikonky
     include("scripts.php"); ?>
 </head>
 <style>
     body{height: 100vh;}
     </style>
-<?php $thisPage="Dodavka"; ?>
+<?php $thisPage="Osobni"; ?>
 
 <body>
 <?php include("nav.php"); ?>
@@ -31,7 +31,7 @@ session_start();
 
 
  //výběr položek
-$sql = "SELECT id, nazev, typ, cena, pocet, pic FROM zbozi where typ = 'dodavka'";
+$sql = "SELECT id, nazev, typ, cena, pocet, pic FROM zbozi where typ = 'tricka'";
 
 if($stmt = mysqli_prepare($link, $sql)){
     // přidání proměných k dotazu

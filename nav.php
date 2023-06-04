@@ -8,24 +8,21 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <nav>  
 <ul>
 <li>
+
+<img src="pic/Untitled.png" width="5%" alt="">
+
 <a href="index.php" <?php if ($thisPage=="Home") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-house" style="#000000;"></i> Domů</a>
 
 
-<a href="dil.php" <?php if ($thisPage=="Dil") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-wrench" style="#000000;"></i> Díly</a>
+<a href="tricka.php" <?php if ($thisPage=="Dil") 
+echo " id=\"currentpage\""; ?>> Trička</a>
 
-<a href="dodavka.php" <?php if ($thisPage=="Dodavka") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-truck" style="#000000;"></i> Dodávky</a>
+<a href="kalhoty.php" <?php if ($thisPage=="Dodavka") 
+echo " id=\"currentpage\""; ?>> Kalhoty</a>
 
-<a href="doplnek.php" <?php if ($thisPage=="Doplnek") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-truck-moving" style="#000000;"></i> Doplňky</a>
-
-<a href="osobni.php" <?php if ($thisPage=="Osobni") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-car" style="#000000;"></i> Osobní auta</a>
-
-<a href="sportovni.php" <?php if ($thisPage=="Sportivni") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-car" style="#000000;"></i> Sportovní auta</a>
+<a href="boty.php" <?php if ($thisPage=="Doplnek") 
+echo " id=\"currentpage\""; ?>>Boty</a>
 
 <a href="login.php" <?php if ($thisPage=="login") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-right-to-bracket" style="#000000;"></i> Přihlásit</a>
@@ -43,23 +40,18 @@ else
 <nav>  
 <ul>
 <li>
+<img src="pic/Untitled.png" width="5%" alt="">
 <a href="index.php" <?php if ($thisPage=="Home") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-house" style="#000000;"></i> Domů</a>
 
-<a href="dil.php" <?php if ($thisPage=="Dil") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-wrench" style="#000000;"></i> Díly</a>
+<a href="tricka.php" <?php if ($thisPage=="Dil") 
+echo " id=\"currentpage\""; ?>> Trička</a>
 
-<a href="dodavka.php" <?php if ($thisPage=="Dodavka") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-truck" style="#000000;"></i> Dodávky</a>
+<a href="kalhoty.php" <?php if ($thisPage=="Dodavka") 
+echo " id=\"currentpage\""; ?>>Kalhoty</a>
 
-<a href="doplnek.php" <?php if ($thisPage=="Doplnek") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-truck-moving" style="#000000;"></i> Doplňky</a>
-
-<a href="osobni.php" <?php if ($thisPage=="Osobni") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-car" style="#000000;"></i> Osobní auta</a>
-
-<a href="sportovni.php" <?php if ($thisPage=="Sportivni") 
-echo " id=\"currentpage\""; ?>><i class="fa-solid fa-car" style="#000000;"></i> Sportovní auta</a>
+<a href="boty.php" <?php if ($thisPage=="Doplnek") 
+echo " id=\"currentpage\""; ?>> Boty</a>
 
 
 
@@ -91,6 +83,7 @@ echo " id=\"currentpage\""; ?>><?php echo  $_SESSION["username"];?></a>
 <nav>  
 <ul>
 <li>
+<img src="pic/Untitled.png" width="5%" alt="">
 <a href="index.php" <?php if ($thisPage=="Home") 
 echo " id=\"currentpage\""; ?>><i class="fa-solid fa-house" style="#000000;"></i> AdminDomů</a>
 
